@@ -6,12 +6,12 @@ public class Driver {
 	private String firstName;
 	private String lastName;
 	private Calendar birthDate;
-	private boolean gender;
-	private boolean licenseType;
+	private int gender;
+	private int licenseType;
 	private int yearsDriving;
 	
 	//public Driver()
-	public Driver(String licenseNum, String fn, String ln, Calendar bdate, boolean g, boolean lt, int y) {
+	public Driver(String licenseNum, String fn, String ln, Calendar bdate, int g, int lt, int y) {
 		licenseNumber = licenseNum;
 		firstName = fn;
 		lastName = ln;
@@ -35,8 +35,8 @@ public class Driver {
 		return String.format("%s-%d-%d", month, day, year);
 	}
 	
-	public String getGender() { return (gender) ? "Male" : "Female"; }
-	public String getLicenseType() { return (licenseType) ? "Professional" : "Non-professional"; }
+	public String getGender() { return (gender == 0) ? "Male" : "Female"; }
+	public String getLicenseType() { return (licenseType == 0) ? "Professional" : "Non-professional"; }
 	public int getYearsDriving() { return yearsDriving; }
 	
 	public Object[] toArray() {

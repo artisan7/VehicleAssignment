@@ -4,13 +4,14 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import java.util.Scanner;
-import java.io.*;
+import java.io.FileReader;
 import java.util.Calendar;
 
 public class MainApp extends JFrame implements ActionListener {
 	JButton btn_driver, btn_vehicle, btn_assignment, btn_exit;
 	DefaultTableModel mdl_drivers, mdl_vehicles, mdl_assignments;
 	
+	// CONSTRUCTOR
 	public MainApp() {
 		// file reading
 		try {
@@ -29,8 +30,8 @@ public class MainApp extends JFrame implements ActionListener {
 				Calendar bdate = Calendar.getInstance();
 				bdate.set(Integer.parseInt(bdateToken[2]), Integer.parseInt(bdateToken[0])-1, Integer.parseInt(bdateToken[1]));
 				
-				boolean g = (Integer.parseInt(token[4]) == 0) ? false : true;
-				boolean t = (Integer.parseInt(token[5]) == 0) ? false : true;
+				int g = Integer.parseInt(token[4]);
+				int t = Integer.parseInt(token[5]);
 				int y = Integer.parseInt(token[6]);
 				
 				Driver d = new Driver(licenseNum, fname, lname, bdate, g, t, y);
@@ -65,6 +66,7 @@ public class MainApp extends JFrame implements ActionListener {
 		setVisible(true);
 	}
 	
+	// ACTION LISTENER
 	public void actionPerformed(ActionEvent e) {
 		JButton src = (JButton) e.getSource();
 		
@@ -78,6 +80,7 @@ public class MainApp extends JFrame implements ActionListener {
 			processWindowEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 	}
 	
+	// MAIN
 	public static void main(String[] args) {
 		new MainApp();
 	}
