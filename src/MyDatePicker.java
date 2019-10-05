@@ -4,7 +4,10 @@ import javax.swing.*;
 import java.util.Calendar;
 
 public class MyDatePicker extends JComponent {
-	private JComboBox cb_month, cb_date, cb_year;
+	private static final long serialVersionUID = 4163830363284674679L;
+	
+	private JComboBox<String> cb_month;
+	private JComboBox<Integer> cb_date, cb_year;
 	
 	public MyDatePicker() {
 		cb_month = new JComboBox<String>(new String[] {"January", "February", "March", "April",
@@ -26,11 +29,11 @@ public class MyDatePicker extends JComponent {
 			}
 		});
 		
-		cb_date = new JComboBox();
+		cb_date = new JComboBox<Integer>();
 		for (int i = 1; i <= 31; i++)
 			cb_date.addItem(i);
 		
-		cb_year = new JComboBox();
+		cb_year = new JComboBox<Integer>();
 		for (int i = 1970; i < 2020; i++)
 			cb_year.addItem(i);
 		

@@ -3,10 +3,13 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
+import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.util.Calendar;
 
 public class AddDriverFrame extends JFrame implements ActionListener {
+	private static final long serialVersionUID = 8214564158263658619L;
+	
 	private DefaultTableModel model;
 	private JButton btn_cancel, btn_reset, btn_save;
 	private JTextField tf_license, tf_fname, tf_lname;
@@ -89,8 +92,9 @@ public class AddDriverFrame extends JFrame implements ActionListener {
 				Driver d = new Driver(licenseNum, fname, lname, bdate, g, dtype, y);
 				
 				// write to file
-				FileWriter outFile = new FileWriter("driver.txt", true);
-				outFile.write(String.format("%s,%s,%s,%s,%d,%d,%d\n", licenseNum, fname, lname, dp_bdate.getDateFormatted(), g, dtype, y));
+				BufferedWriter outFile = new BufferedWriter( new FileWriter("driver.txt", true) );
+				outFile.newLine();
+				outFile.write(String.format("%s,%s,%s,%s,%d,%d,%d", licenseNum, lname, fname, dp_bdate.getDateFormatted(), g, dtype, y));
 				outFile.close();
 				
 				// add to table

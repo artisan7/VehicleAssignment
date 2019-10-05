@@ -1,13 +1,13 @@
-import java.util.Date;
+import java.util.Calendar;
 
 public class Assignment {
 	private Driver driver;
 	private Vehicle vehicle;
 	private String notes;
-	private Date assignmentDate;
+	private Calendar assignmentDate;
 	
 	//public Assignment()
-	public Assignment(Driver d, Vehicle v, String n, Date adate) {
+	public Assignment(Driver d, Vehicle v, String n, Calendar adate) {
 		driver = d;
 		vehicle = v;
 		notes = n;

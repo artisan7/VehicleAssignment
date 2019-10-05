@@ -8,23 +8,23 @@ import java.io.FileReader;
 import java.util.Calendar;
 
 public class MainApp extends JFrame implements ActionListener {
+	private static final long serialVersionUID = -8963769804747863125L;
+
+	static DefaultTableModel mdl_drivers, mdl_vehicles, mdl_assignments;
 	JButton btn_driver, btn_vehicle, btn_assignment, btn_exit;
-	DefaultTableModel mdl_drivers, mdl_vehicles, mdl_assignments;
 	
 	// CONSTRUCTOR
 	public MainApp() {
-		// file reading
+		// driver table setup
 		try {
 			Scanner inFile = new Scanner(new FileReader("driver.txt"));
 			
-			mdl_drivers = new DefaultTableModel(new String[] {"License No.", "Name", "Birthdate", "Gender", "License Type", "Years Driving"}, 0);
-			
-			inFile.nextLine();
+			mdl_drivers = new DefaultTableModel(inFile.nextLine().split(","), 0);
 			while (inFile.hasNext()) {
 				String[] token = inFile.nextLine().split(",");
 				String licenseNum = token[0];
-				String fname = token[1];
-				String lname = token[2];
+				String lname = token[1];
+				String fname = token[2];
 				
 				String[] bdateToken = token[3].split("/");
 				Calendar bdate = Calendar.getInstance();
@@ -34,13 +34,33 @@ public class MainApp extends JFrame implements ActionListener {
 				int t = Integer.parseInt(token[5]);
 				int y = Integer.parseInt(token[6]);
 				
-				Driver d = new Driver(licenseNum, fname, lname, bdate, g, t, y);
+				Driver d = new Driver(licenseNum, lname, fname, bdate, g, t, y);
 				mdl_drivers.addRow(d.toArray());
 			}
 			
 			inFile.close();
 		}
-		catch (Exception e) { System.out.println(e.getMessage()); }
+		catch (Exception e) { System.out.println("ERROR 001: " + e.getMessage()); }
+		
+		// vehicle table setup
+		try {
+			Scanner inFile = new Scanner(new FileReader("vehicle.txt"));
+			
+			mdl_vehicles = new DefaultTableModel(inFile.nextLine().split(","), 0);
+			while (inFile.hasNext()) {
+				String[] token = inFile.nextLine().split(",");
+				String plateNo = token[0];
+				String make = token[1];
+				String model = token[2];
+				int yr = Integer.parseInt(token[3]);
+				
+				Vehicle v = new Vehicle(plateNo, make, model, yr);
+				mdl_vehicles.addRow(v.toArray());
+			}
+			
+			inFile.close();
+		}
+		catch (Exception e) { System.out.println("ERROR 001: " + e.getMessage()); }
 		
 		// frame components
 		btn_driver = new JButton("Driver");
@@ -71,11 +91,11 @@ public class MainApp extends JFrame implements ActionListener {
 		JButton src = (JButton) e.getSource();
 		
 		if (src == btn_driver)
-			new DriverFrame(mdl_drivers);
+			new TableFrame(mdl_drivers);
 		else if (src == btn_vehicle)
-			System.out.println("VEHICLE");
+			new TableFrame(mdl_vehicles);
 		else if (src == btn_assignment)
-			System.out.println("ASSIGNMENT");
+			new AddAssignmentFrame();
 		else 
 			processWindowEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 	}
