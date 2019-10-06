@@ -21,6 +21,7 @@ public class TableFrame extends JFrame implements ActionListener, TableModelList
 		model.addTableModelListener(this);
 		
 		table = new JTable(model);
+		table.getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		sorter = new TableRowSorter<DefaultTableModel>(model);
 		sorter.toggleSortOrder(0);
 		table.setRowSorter(sorter);
@@ -44,7 +45,7 @@ public class TableFrame extends JFrame implements ActionListener, TableModelList
 		
 		// frame setup
 		setTitle("Drivers");
-		setSize(table.getColumnCount()*100, 550);
+		setSize(table.getColumnCount()*175, 550);
 		setVisible(true);
 	}
 	
@@ -57,17 +58,24 @@ public class TableFrame extends JFrame implements ActionListener, TableModelList
 			String searchedText = "(?i)" + tf_search.getText();
 			sorter.setRowFilter(RowFilter.regexFilter(searchedText, 0, 1, 2));
 		}
-		else if (model == MainApp.mdl_drivers) {	// add driver functionality
-			new AddDriverFrame(model);
-		}
-		else if (model == MainApp.mdl_vehicles) {
-			new AddVehicleFrame(model);
+		else {
+			if (model == MainApp.mdl_drivers)		// add driver functionality
+				new AddDriverFrame(model);
+			else if (model == MainApp.mdl_vehicles)
+				new AddVehicleFrame(model);
+			else if (model == MainApp.mdl_assignments)
+				new AddAssignmentFrame();
 		}
 	}
 	
 	// TABLE MODEL LISTENER
 	public void tableChanged(TableModelEvent e) {
 		if (e.getType() == TableModelEvent.INSERT) {
+			// resets search field
+			tf_search.setText(null);
+			btn_search.doClick();
+			
+			// selects the newly added row
 			int r = sorter.convertRowIndexToView(e.getFirstRow());
 			table.setRowSelectionInterval(r, r);
 			scrollPane.getViewport().setViewPosition(new Point(0, r*table.getRowHeight()));

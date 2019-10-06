@@ -22,6 +22,7 @@ public class MainApp extends JFrame implements ActionListener {
 			mdl_drivers = new DefaultTableModel(inFile.nextLine().split(","), 0);
 			while (inFile.hasNext()) {
 				String[] token = inFile.nextLine().split(",");
+				
 				String licenseNum = token[0];
 				String lname = token[1];
 				String fname = token[2];
@@ -49,6 +50,7 @@ public class MainApp extends JFrame implements ActionListener {
 			mdl_vehicles = new DefaultTableModel(inFile.nextLine().split(","), 0);
 			while (inFile.hasNext()) {
 				String[] token = inFile.nextLine().split(",");
+				
 				String plateNo = token[0];
 				String make = token[1];
 				String model = token[2];
@@ -60,7 +62,36 @@ public class MainApp extends JFrame implements ActionListener {
 			
 			inFile.close();
 		}
-		catch (Exception e) { System.out.println("ERROR 001: " + e.getMessage()); }
+		catch (Exception e) { System.out.println("ERROR 002: " + e.getMessage()); }
+		
+		// assignment table setup
+		try {
+			Scanner inFile = new Scanner(new FileReader("assignment.txt"));
+			
+			mdl_assignments = new DefaultTableModel(inFile.nextLine().split(","), 0);
+			while (inFile.hasNext()) {
+				String[] token = inFile.nextLine().split(",");
+				
+				Driver d = Driver.search(token[0]);
+				Vehicle v = Vehicle.search(token[1]);
+				
+				String[] adateToken = token[2].split("/");
+				String[] atimeToken = token[3].split(":");
+				Calendar adate = Calendar.getInstance();
+				adate.set(Integer.parseInt(adateToken[2]), Integer.parseInt(adateToken[0])-1, Integer.parseInt(adateToken[1]),
+						Integer.parseInt(atimeToken[0]), Integer.parseInt(atimeToken[1]), Integer.parseInt(atimeToken[2]));
+				
+				String n = token[4];
+				
+				if (d != null && v != null) {
+					Assignment a = new Assignment(d, v, n, adate);
+					mdl_assignments.addRow(a.toArray());
+				}
+			}
+			
+			inFile.close();
+		}
+		catch (Exception e) { System.out.println("ERROR 003: " + e.getMessage()); }
 		
 		// frame components
 		btn_driver = new JButton("Driver");
@@ -95,7 +126,7 @@ public class MainApp extends JFrame implements ActionListener {
 		else if (src == btn_vehicle)
 			new TableFrame(mdl_vehicles);
 		else if (src == btn_assignment)
-			new AddAssignmentFrame();
+			new TableFrame(mdl_assignments);
 		else 
 			processWindowEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 	}

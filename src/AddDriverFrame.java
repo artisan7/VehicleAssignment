@@ -101,7 +101,7 @@ public class AddDriverFrame extends JFrame implements ActionListener {
 				model.addRow(d.toArray());
 				dispose();
 			}
-			catch (Exception ex) { System.out.println(ex.getMessage()); }
+			catch (Exception ex) { System.out.println("ERROR 04: " + ex.getMessage()); }
 		}
 		else if (src == btn_reset) {
 			// reset fields

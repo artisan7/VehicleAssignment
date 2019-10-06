@@ -34,7 +34,7 @@ public class MyDatePicker extends JComponent {
 			cb_date.addItem(i);
 		
 		cb_year = new JComboBox<Integer>();
-		for (int i = 1970; i < 2020; i++)
+		for (int i = 2019; i >= 1970; i--)
 			cb_year.addItem(i);
 		
 		setLayout(new GridLayout(1, 3));
@@ -46,14 +46,16 @@ public class MyDatePicker extends JComponent {
 	// GETTERS
 	public Calendar getSelectedDate() {
 		Calendar d = Calendar.getInstance();
-		d.set(cb_year.getSelectedIndex()+1970, cb_month.getSelectedIndex(), cb_date.getSelectedIndex()+1);
+		d.set((int) cb_year.getSelectedItem(), cb_month.getSelectedIndex(), cb_date.getSelectedIndex()+1);
 		return d;
 	}
 	
 	public String getDateFormatted() {
-		return String.format("%d/%d/%d", cb_month.getSelectedIndex()+1, cb_date.getSelectedIndex()+1, cb_year.getSelectedIndex()+1970);
+		Calendar d = getSelectedDate();
+		return String.format("%d/%d/%d", d.get(Calendar.MONTH), d.get(Calendar.DAY_OF_MONTH), d.get(Calendar.YEAR));
 	}
 	
+	// RESET ENTRIES
 	public void reset() {
 		cb_month.setSelectedIndex(0);
 		cb_date.setSelectedIndex(0);

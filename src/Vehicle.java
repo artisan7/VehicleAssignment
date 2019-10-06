@@ -10,8 +10,8 @@ public class Vehicle {
 	private int year;
 	
 	//public Vehicle()
-	public Vehicle(String plateNum, String mk, String mdl, int y) {
-		plateNumber = plateNum;
+	public Vehicle(String plateNo, String mk, String mdl, int y) {
+		plateNumber = plateNo;
 		make = mk;
 		model = mdl;
 		year = y;
@@ -21,19 +21,36 @@ public class Vehicle {
 		vehicles.add(this);
 	}
 	
+	// TO STRING
+	public String toString() {
+		return String.format("%s %s %d (%s)", make, model, year, plateNumber);
+	}
+	
+	// TO ARRAY
 	public String[] toArray() {
 		return new String[] { plateNumber, make, model, Integer.toString(year) };
 	}
 	
-	static public Vector<String> getMakeList() {
+	// GETTERS
+	public String getPlateNumber() { return plateNumber; }
+	
+	// GET LIST OF MAKES
+	public static Vector<String> getMakeList() {
 		makes.sort(null);
 		return makes;
 	}
 	
-	static void addMake(String m) {
+	// ADD NEW MAKE
+	public static void addMake(String m) {
 		makes.add(m);
 		makes.sort(null);
 	}
 	
-	static Vector<Vehicle> getAll() { return vehicles; }
+	// VEHICLE SEARCH
+	public static Vehicle search(String plateNo) {
+		for (Vehicle v : vehicles)
+			if (v.plateNumber.equals(plateNo))
+				return v;
+		return null;
+	}
 }

@@ -3,7 +3,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class Driver {
-	private Vector<Driver> drivers = new Vector<Driver>();
+	private static Vector<Driver> drivers = new Vector<Driver>();
 	
 	private String licenseNumber;
 	private String lastName;
@@ -13,7 +13,7 @@ public class Driver {
 	private int licenseType;
 	private int yearsDriving;
 	
-	//public Driver()
+	// CONSTRUCTOR
 	public Driver(String licenseNum, String ln, String fn, Calendar bdate, int g, int lt, int y) {
 		licenseNumber = licenseNum;
 		lastName = ln;
@@ -22,6 +22,8 @@ public class Driver {
 		gender = g;
 		licenseType = lt;
 		yearsDriving = y;
+		
+		drivers.add(this);
 	}
 	
 	// GETTERS
@@ -41,9 +43,21 @@ public class Driver {
 	public String getLicenseType() { return (licenseType == 0) ? "Professional" : "Non-professional"; }
 	public int getYearsDriving() { return yearsDriving; }
 	
+	// TO STRING AKA GET FULL NAME
+	public String toString() {
+		return lastName + ", " + firstName;
+	}
+	
+	// TO ARRAY
 	public String[] toArray() {
 		return new String[] {licenseNumber, lastName, firstName, getBirthDate(), getGender(), getLicenseType(), Integer.toString(yearsDriving) };
 	}
 	
-	public Vector<Driver> getAll() { return drivers; }
+	// DRIVER SEARCH
+	public static Driver search(String licenseNum) {
+		for (Driver d : drivers)
+			if (d.licenseNumber.equals(licenseNum))
+				return d;
+		return null;
+	}
 }

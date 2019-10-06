@@ -1,0 +1,6 @@
+Driver,Vehicle,Assignment Date,Assignment Time,Notes
+L05-00-000102,MCX 954,9/11/2007,17:54:12,got at a 90% discount
+L11-18-125752,NLA 727,10/5/2019,23:37:37,very old but very cool
+L00-01-111111,PT 5233,10/5/2019,23:39:25,blip blop
+L01-01-222333,ARA 501,10/6/2019,0:11:59,so guud
+L12-31-001221,NDC 1844,10/6/2019,10:30:49, 
