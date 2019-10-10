@@ -3,19 +3,93 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
-import java.util.Scanner;
 import java.io.FileReader;
+import java.util.Scanner;
 import java.util.Calendar;
 
 public class MainApp extends JFrame implements ActionListener {
-	private static final long serialVersionUID = -8963769804747863125L;
-
 	static DefaultTableModel mdl_drivers, mdl_vehicles, mdl_assignments;
 	JButton btn_driver, btn_vehicle, btn_assignment, btn_exit;
 	
 	// CONSTRUCTOR
 	public MainApp() {
-		// driver table setup
+		// Stylizer class setup
+		Stylizer.setBackground(new Color(47, 53, 66));
+		Stylizer.applyTo(this);
+		
+		// frame components
+		btn_driver = new JButton("DRIVER");
+		btn_vehicle = new JButton("VEHICLE");
+		btn_assignment = new JButton("ASSIGNMENT");
+		btn_exit = new JButton("EXIT");
+		
+		btn_driver.addActionListener(this);
+		btn_vehicle.addActionListener(this);
+		btn_assignment.addActionListener(this);
+		btn_exit.addActionListener(this);
+		
+		// layout for top panel
+		JPanel pnl_top = new JPanel(new GridLayout(1, 2));
+		
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.fill = GridBagConstraints.BOTH;
+		
+		pnl_top.add(btn_driver);
+		pnl_top.add(btn_vehicle);
+		
+		// layout for bottom panel
+		JPanel pnl_bottom = new JPanel(new GridBagLayout());
+		gbc.gridx = 0;
+		gbc.weightx = 2; gbc.weighty = 1;
+		pnl_bottom.add(btn_assignment, gbc);
+		gbc.gridx = 1;
+		gbc.weightx = 1;
+		pnl_bottom.add(btn_exit, gbc);
+		
+		// overall layout
+		setLayout(new GridBagLayout());
+		gbc.gridx = 0;
+		gbc.weighty = 2;
+		add(pnl_top, gbc);
+		
+		gbc.gridx = 0; gbc.gridy = 1;
+		gbc.weighty = 1;
+		add(pnl_bottom, gbc);
+		
+		// stylize components
+		Stylizer.setButtonForeground(Color.WHITE);
+		Stylizer.setButtonFont(new Font("Sans Serif", Font.BOLD, 52));
+		Stylizer.applyTo(btn_driver, new Color(255, 165, 2));
+		Stylizer.applyTo(btn_vehicle, new Color(55, 66, 250));
+		Stylizer.setButtonFont(new Font("Sans Serif", Font.BOLD, 48));
+		Stylizer.applyTo(btn_assignment, new Color(46, 213, 115));
+		Stylizer.applyTo(btn_exit, new Color(255, 71, 87), Color.BLACK);
+		
+		// frame setup
+		setTitle("Vehicle Assignment System");
+		setSize(700, 500);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
+		setVisible(true);
+	}
+
+	// ACTION LISTENER
+	public void actionPerformed(ActionEvent e) {
+		JButton src = (JButton) e.getSource();
+		
+		if (src == btn_driver)
+			new TableFrame(mdl_drivers);
+		else if (src == btn_vehicle)
+			new TableFrame(mdl_vehicles);
+		else if (src == btn_assignment)
+			new TableFrame(mdl_assignments);
+		else 
+			processWindowEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+	}
+
+	// MAIN
+	public static void main(String[] args) {
+		// driver table setup with data from driver.txt
 		try {
 			Scanner inFile = new Scanner(new FileReader("driver.txt"));
 			
@@ -43,7 +117,7 @@ public class MainApp extends JFrame implements ActionListener {
 		}
 		catch (Exception e) { System.out.println("ERROR 001: " + e.getMessage()); }
 		
-		// vehicle table setup
+		// vehicle table setup with data from vehicle.txt
 		try {
 			Scanner inFile = new Scanner(new FileReader("vehicle.txt"));
 			
@@ -64,7 +138,7 @@ public class MainApp extends JFrame implements ActionListener {
 		}
 		catch (Exception e) { System.out.println("ERROR 002: " + e.getMessage()); }
 		
-		// assignment table setup
+		// assignment table setup with data from assignment.txt
 		try {
 			Scanner inFile = new Scanner(new FileReader("assignment.txt"));
 			
@@ -93,47 +167,7 @@ public class MainApp extends JFrame implements ActionListener {
 		}
 		catch (Exception e) { System.out.println("ERROR 003: " + e.getMessage()); }
 		
-		// frame components
-		btn_driver = new JButton("Driver");
-		btn_driver.addActionListener(this);
-		btn_vehicle = new JButton("Vehicle");
-		btn_vehicle.addActionListener(this);
-		btn_assignment = new JButton("Assignment");
-		btn_assignment.addActionListener(this);
-		btn_exit = new JButton("Exit");
-		btn_exit.addActionListener(this);
-		
-		// frame components layout
-		setLayout(new GridLayout(2,2));
-		add(btn_driver);
-		add(btn_vehicle);
-		add(btn_assignment);
-		add(btn_exit);
-		
-		// frame setup
-		setTitle("Vehicle Assignment System");
-		setSize(550, 550);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setVisible(true);
-	}
-	
-	// ACTION LISTENER
-	public void actionPerformed(ActionEvent e) {
-		JButton src = (JButton) e.getSource();
-		
-		if (src == btn_driver)
-			new TableFrame(mdl_drivers);
-		else if (src == btn_vehicle)
-			new TableFrame(mdl_vehicles);
-		else if (src == btn_assignment)
-			new TableFrame(mdl_assignments);
-		else 
-			processWindowEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-	}
-	
-	// MAIN
-	public static void main(String[] args) {
-		new MainApp();
+		new MainApp();	// call main window
 	}
 	
 }

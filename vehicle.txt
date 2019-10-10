@@ -23,3 +23,8 @@ NCX 6213,Honda,Civic,2015
 ARA 501,Honda,CR-V,2009
 FJF 178,Honda,CR-V,2013
 PET 212,Toyota,Innova,2017
+NDE 7157,Toyota,Hilux,2017
+AAN 2869,Suzuki,Alto,2014
+AAG 5555,Nissan,Juke,2017
+ABC 123,Nissan,Frontier,2001
+AAN 1986,BMW,Sedan,2014

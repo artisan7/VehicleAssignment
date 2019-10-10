@@ -35,19 +35,11 @@ L54-11-013232,Haw,Harriette,7/22/1999,1,1,0
 L55-55-555555,Kamado,Tanjiro,7/14/2005,0,1,0
 L01-91-544332,Adriatico,Giya,8/4/2000,1,1,1
 L72-27-987671,Agatsuma,Zenitsu,8/3/2005,0,1,0
-L72-27-987671,Agatsuma,Zenitsu,8/3/2005,0,1,0
-L72-27-987671,Agatsuma,Zenitsu,8/3/2005,0,1,0
-L72-27-987671,Agatsuma,Zenitsu,8/3/2005,0,1,0
-L72-27-987671,Agatsuma,Zenitsu,8/3/2005,0,1,0
-L72-27-987671,Agatsuma,Zenitsu,8/3/2005,0,1,0
-L72-27-987671,Agatsuma,Zenitsu,8/3/2005,0,1,0
-L27-72-987789,Agatsuma,Zenitsu,8/3/2005,0,1,0
 L11-11-111111,Reeves,Keanu Charles,8/2/1970,0,0,12
 L59-23-123456,Olsen,Elizabeth,1/16/1989,1,0,5
-L59-23-123456,Olsen,Elizabeth,1/16/1989,1,0,5
-L59-23-123456,Olsen,Elizabeth,1/16/1989,1,0,5
-L59-23-123456,Olsen,Elizabeth,1/16/1989,1,0,5
-L59-23-123456,Olsen,Elizabeth,1/16/1989,1,0,5
-L59-23-123456,Olsen,Elizabeth,1/16/1989,1,0,5
-L59-23-123456,Olsen,Elizabeth,1/16/1989,1,0,5
-L05-12-545467,Downey,Robert, Jr.,3/4/1970,0,0,11
+L05-12-545467,Downey,Robert Jr.,3/4/1970,0,0,11
+L22-55-999999,Gates,Bill,10/28/1970,0,0,10
+L21-24-546545,Johansson,Scarlett,11/22/1984,1,0,5
+L09-92-121212,De Jesus,Dwight Ian,6/7/1999,0,1,2
+L10-00-000000,KjellBerg,Felix,10/24/1989,0,0,4
+L77-75-777777,Kjellberg,Marzia,10/21/1992,1,0,2

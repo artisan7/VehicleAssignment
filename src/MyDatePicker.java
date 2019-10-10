@@ -3,9 +3,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.util.Calendar;
 
-public class MyDatePicker extends JComponent {
-	private static final long serialVersionUID = 4163830363284674679L;
-	
+public class MyDatePicker extends JComponent implements ActionListener {
 	private JComboBox<String> cb_month;
 	private JComboBox<Integer> cb_date, cb_year;
 	
@@ -13,21 +11,7 @@ public class MyDatePicker extends JComponent {
 		cb_month = new JComboBox<String>(new String[] {"January", "February", "March", "April",
 													   "May", "June", "July", "August",
 													   "September", "October", "November", "December"});
-		cb_month.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				cb_date.removeAllItems();
-				int days = 31;
-				switch (cb_month.getSelectedIndex()) {
-				case 1: days--;
-				case 3:
-				case 5:
-				case 8:
-				case 10: days--;
-				}
-				for (int i = 1; i <= days; i++)
-					cb_date.addItem(i);				
-			}
-		});
+		cb_month.addActionListener(this);
 		
 		cb_date = new JComboBox<Integer>();
 		for (int i = 1; i <= 31; i++)
@@ -50,15 +34,31 @@ public class MyDatePicker extends JComponent {
 		return d;
 	}
 	
-	public String getDateFormatted() {
-		Calendar d = getSelectedDate();
-		return String.format("%d/%d/%d", d.get(Calendar.MONTH), d.get(Calendar.DAY_OF_MONTH), d.get(Calendar.YEAR));
-	}
+	public JComboBox getMonthComboBox() { return cb_month; }
+	public JComboBox getDateComboBox() { return cb_date; }
+	public JComboBox getYearComboBox() { return cb_year; }
 	
 	// RESET ENTRIES
 	public void reset() {
 		cb_month.setSelectedIndex(0);
 		cb_date.setSelectedIndex(0);
 		cb_year.setSelectedIndex(0);
+	}
+	
+	// ACTION LISTENER -> adjusts number of days based on month selected
+	public void actionPerformed(ActionEvent e) {
+		cb_date.removeAllItems();
+		int days = 31;
+		
+		switch (cb_month.getSelectedIndex()) {
+		case 1: days--;
+		case 3:
+		case 5:
+		case 8:
+		case 10: days--;
+		}
+		
+		for (int i = 1; i <= days; i++)
+			cb_date.addItem(i);
 	}
 }

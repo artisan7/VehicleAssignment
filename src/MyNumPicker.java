@@ -2,22 +2,27 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-@SuppressWarnings("serial")
 public class MyNumPicker extends JComponent implements ActionListener {
-	private int val = 0;
-	private JTextField tf_num;
+	protected JTextField tf_num;
+	protected JButton btn_dec, btn_inc;
 	
-	public MyNumPicker() {
-		this(0);
-	}
+	protected int val;
+	protected int defaultVal;
+	protected int min;
+	protected int max;
 	
-	public MyNumPicker(int startVal) {
-		JButton btn_dec = new JButton("-");
-		JButton btn_inc = new JButton("+");
+	// CONSTRUCTORS
+	public MyNumPicker() { this(0, 0, Integer.MAX_VALUE); }
+	public MyNumPicker(int startVal, int mn, int mx) {
+		val = defaultVal = startVal;
+		min = mn;
+		max = mx;
+		
+		btn_dec = new JButton("-");
+		btn_inc = new JButton("+");
 		btn_dec.addActionListener(this);
 		btn_inc.addActionListener(this);
 		
-		val = startVal;
 		tf_num = new JTextField(Integer.toString(val));
 		tf_num.setEditable(false);
 		tf_num.setHorizontalAlignment(JTextField.CENTER);
@@ -28,19 +33,25 @@ public class MyNumPicker extends JComponent implements ActionListener {
 		add(btn_inc);
 	}
 	
+	// ACTION LISTENER -> changes value when buttons are clicked
 	public void actionPerformed(ActionEvent e) {
-		String str_btn =((JButton) e.getSource()).getText();
+		JButton src =(JButton) e.getSource();
 		
-		if (str_btn == "+")
+		if (src == btn_inc && val < max)
 			val++;
-		else if (val > 0)
+		else if (src == btn_dec && val > min)
 			val--;
 		
 		tf_num.setText(Integer.toString(val));
 	}
 	
+	// GETTERS
+	public JButton getAddButton() { return btn_inc; }
+	public JButton getSubtractButton() { return btn_dec; }
 	public int getValue() { return val; }
 	
+	// SETTERS
+	public void reset() { setValue(defaultVal); }
 	public void setValue(int v) {
 		val = v;
 		tf_num.setText(Integer.toString(val));
