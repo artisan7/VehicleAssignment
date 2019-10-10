@@ -91,7 +91,7 @@ public class AddDriverForm extends JDialog implements ActionListener {
 			
 			// add the new driver
 			try {
-				Driver d = new Driver(licenseNum, fname, lname, bdate, g, dtype, y);
+				Driver d = new Driver(licenseNum, lname, fname, bdate, g, dtype, y);
 				
 				// write to file
 				BufferedWriter outFile = new BufferedWriter( new FileWriter("driver.txt", true) );
